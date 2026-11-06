@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><!-- i18n:switcher --><style data-i18n-sw>.i18n-pick{display:inline-flex;align-items:center;gap:4px;margin:0 8px;font:inherit;font-size:13px;white-space:nowrap}.i18n-pick select{font:inherit;font-size:13px;padding:3px 6px;border-radius:8px;border:1px solid var(--rule,rgba(128,128,128,.5));background:var(--panel,Canvas);color:var(--text,CanvasText)}.i18n-pick.float{position:fixed;top:calc(8px + env(safe-area-inset-top,0px));right:max(8px,env(safe-area-inset-right,0px));z-index:9998}#i18nBanner{position:fixed;right:max(14px,env(safe-area-inset-right,0px));bottom:max(14px,env(safe-area-inset-bottom,0px));z-index:9999;font:14px/1.3 var(--font,system-ui,sans-serif)}#i18nBanner>button{border-radius:999px;padding:9px 14px;border:1px solid var(--rule,#363a52);background:var(--panel,#1c1e2d);color:var(--text,#eceaf3);box-shadow:0 4px 14px rgba(0,0,0,.35);cursor:pointer;font:inherit}#i18nBanner ul{position:absolute;right:0;bottom:calc(100% + 8px);margin:0;padding:6px;list-style:none;min-width:150px;border-radius:12px;border:1px solid var(--rule,#363a52);background:var(--panel,#1c1e2d);box-shadow:0 8px 24px rgba(0,0,0,.4)}#i18nBanner ul[hidden]{display:none}#i18nBanner a{display:block;padding:7px 10px;border-radius:8px;color:var(--text,#eceaf3);text-decoration:none}#i18nBanner a:hover,#i18nBanner a:focus-visible{background:var(--panel2,#25283a)}#i18nBanner a[aria-current]{color:var(--amber,#f1b646);font-weight:700}@media print{#i18nBanner,.i18n-pick{display:none!important}}</style><script data-i18n-skip>(function(){var C={"langs": [["ko", "한국어"], ["en", "English"], ["zh", "中文"], ["ja", "日本語"], ["uz", "Oʻzbekcha"], ["ru", "Русский"], ["vi", "Tiếng Việt"]], "urls": {"ko": "index.html", "en": "index.en.html", "zh": "index.zh.html", "ja": "index.ja.html", "uz": "index.uz.html", "ru": "index.ru.html", "vi": "index.vi.html"}, "cur": "ko", "auto": true, "key": "llmeval_lang", "hosts": [["#langSw", "append"], ["nav.top .brand", "after"], ["nav.top .logo", "after"], ["nav .in", "append"], ["nav", "append"]], "banner": true, "select": true},cur=C.cur,ok={},de=document.documentElement;C.langs.forEach(function(l){ok[l[0]]=1});
+function U(l){return C.urls[l]}
+function save(l){try{localStorage.setItem(C.key,l)}catch(e){}}
+function saved(){try{return localStorage.getItem(C.key)}catch(e){return null}}
+function go(l){location.replace(U(l)+'?lang='+l+location.hash)}
+var shown=function(){de.style.visibility=''};
+function tryGo(l){if(location.protocol==='file:'){go(l);return}
+ de.style.visibility='hidden';var t=setTimeout(shown,2500);
+ try{fetch(U(l),{method:'HEAD',cache:'no-store'}).then(function(r){if(r.ok)go(l);else{clearTimeout(t);shown()}},function(){clearTimeout(t);shown()})}catch(e){clearTimeout(t);shown()}}
+var q=null;try{q=new URLSearchParams(location.search).get('lang')}catch(e){}
+if(q&&ok[q]){save(q);if(q!==cur){tryGo(q);}}
+else if(cur==='ko'&&C.auto){var s=saved(),to=null;
+ if(s&&ok[s]){if(s!=='ko')to=s;}
+ else if(location.protocol!=='file:'){var same=false;try{same=!!document.referrer&&new URL(document.referrer).origin===location.origin}catch(e){}
+  if(!same){var nav=(navigator.languages||[navigator.language||'']).map(function(x){return String(x).slice(0,2).toLowerCase()});
+   for(var i=0;i<nav.length;i++){if(nav[i]==='ko')break;if(ok[nav[i]]){to=nav[i];break;}}}}
+ if(to)tryGo(to);}
+function pick(l){save(l);location.href=U(l)+'?lang='+l+location.hash;}
+function name(l){for(var i=0;i<C.langs.length;i++)if(C.langs[i][0]===l)return C.langs[i][1];return l}
+function mount(){if(document.getElementById('i18nSel'))return;
+ if(C.select){var w=document.createElement('span');w.className='i18n-pick';w.innerHTML='<span aria-hidden="true">🌐</span>';
+  var s=document.createElement('select');s.id='i18nSel';s.setAttribute('aria-label','Language');
+  C.langs.forEach(function(l){var o=document.createElement('option');o.value=l[0];o.textContent=l[1];if(l[0]===cur)o.selected=true;s.appendChild(o);});
+  s.addEventListener('change',function(){pick(s.value)});w.appendChild(s);var put=false;
+  for(var i=0;i<C.hosts.length&&!put;i++){var h=document.querySelector(C.hosts[i][0]);if(!h)continue;var m=C.hosts[i][1];
+   if(m==='after')h.insertAdjacentElement('afterend',w);else if(m==='before')h.insertAdjacentElement('beforebegin',w);else h.appendChild(w);put=true;}
+  if(!put){w.classList.add('float');document.body.appendChild(w);}}
+ if(C.banner&&!document.getElementById('i18nBanner')){var b=document.createElement('div');b.id='i18nBanner';
+  var bt=document.createElement('button');bt.type='button';bt.setAttribute('aria-haspopup','true');bt.setAttribute('aria-expanded','false');bt.textContent='🌐 '+name(cur);
+  var ul=document.createElement('ul');ul.hidden=true;ul.setAttribute('role','menu');
+  C.langs.forEach(function(l){var li=document.createElement('li'),a=document.createElement('a');a.href=U(l[0])+'?lang='+l[0];a.textContent=l[1];a.lang=l[0];a.setAttribute('role','menuitem');
+   if(l[0]===cur)a.setAttribute('aria-current','true');a.addEventListener('click',function(e){e.preventDefault();pick(l[0])});li.appendChild(a);ul.appendChild(li);});
+  function close(){ul.hidden=true;bt.setAttribute('aria-expanded','false')}
+  bt.addEventListener('click',function(e){e.stopPropagation();ul.hidden=!ul.hidden;bt.setAttribute('aria-expanded',String(!ul.hidden))});
+  document.addEventListener('click',function(e){if(!b.contains(e.target))close()});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'){close();bt.focus&&!ul.hidden&&bt.focus()}});
+  b.appendChild(ul);b.appendChild(bt);document.body.appendChild(b);}}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();})();</script><!-- /i18n:switcher -->
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AI 점수는 무엇을 잰 것일까 — 연구실 해설</title>
+<meta name="description" content="분류 모델 채점에서 LLM 리더보드까지, 다섯 칸으로 직접 돌려 보며 배우는 LLM 평가 해설 대시보드의 첫 화면입니다.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="AI 점수는 무엇을 잰 것일까 — 연구실 해설">
+<meta property="og:description" content="다들 1등이라는데, 그 1등은 어떤 시험의 1등일까? 분류 모델 채점에서 LLM 리더보드까지.">
+<meta property="og:image" content="https://adminmrobo.github.io/LLM_evaluation/assets/og_llmeval.jpg">
+<meta property="og:url" content="https://adminmrobo.github.io/LLM_evaluation/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;700&display=swap">
+<style>
+:root{
+  --bg:#13141f; --panel:#1c1e2d; --panel2:#25283a; --rule:#363a52;
+  --text:#eceaf3; --muted:#9d9bb8;
+  --stain:#d672d6; --gfp:#5ee39c; --eye:#f0604d; --amber:#f1b646; --info:#82b8ff;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:400 16px/1.75 "IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",system-ui,sans-serif;overflow-x:hidden;word-break:keep-all}
+a{color:var(--info)}
+:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+nav.top{position:sticky;top:0;z-index:50;height:54px;display:flex;align-items:center;gap:10px;padding:0 16px;background:rgba(19,20,31,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--rule)}
+nav.top .brand{font-weight:700;color:var(--gfp);text-decoration:none;white-space:nowrap}
+nav.top{overflow-x:auto;scrollbar-width:none}
+nav.top::-webkit-scrollbar{display:none}
+@media (max-width:560px){nav.top .go{display:none}}
+nav.top .sp{flex:1}
+nav.top .go{color:var(--text);text-decoration:none;font-size:14px;padding:6px 12px;border:1px solid var(--rule);border-radius:999px;white-space:nowrap}
+nav.top .go:hover{background:var(--panel2)}
+.cover{margin:0;aspect-ratio:16/9;max-height:64vh;width:100%;overflow:hidden;background:linear-gradient(160deg,#1b1533,#13141f);border-bottom:1px solid var(--rule)}
+.cover img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 42%}
+@media (max-width:600px){.cover{max-height:none}}
+.wrap{max-width:980px;margin:0 auto;padding:0 16px}
+header.hero{padding:44px 0 20px}
+.tag{display:inline-block;font-size:13px;color:var(--gfp);border:1px solid rgba(94,227,156,.4);border-radius:999px;padding:3px 12px;margin:0 0 14px}
+h1{font-size:clamp(30px,6vw,52px);line-height:1.2;margin:0 0 10px;letter-spacing:-.01em}
+.qline{font-size:clamp(18px,2.6vw,22px);color:var(--amber);margin:0 0 18px;font-weight:500}
+.lead{font-size:17px;max-width:46em;margin:0 0 22px}
+.byline{color:var(--muted);font-size:14px;margin:0 0 26px}
+.cta{display:inline-flex;align-items:center;gap:8px;background:var(--amber);color:#1b1533;font-weight:700;text-decoration:none;padding:12px 22px;border-radius:12px;font-size:17px}
+.cta:hover{filter:brightness(1.08)}
+section{padding:44px 0;border-top:1px solid var(--rule)}
+h2{font-size:24px;margin:0 0 6px}
+.sub{color:var(--muted);margin:0 0 22px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.card{background:var(--panel);border:1px solid var(--rule);border-radius:14px;padding:16px 18px;text-decoration:none;color:var(--text);display:block}
+a.card:hover{border-color:var(--amber)}
+.card .n{font-size:13px;color:var(--muted);margin:0 0 2px}
+.card h3{font-size:17px;margin:0 0 6px}
+.card p{margin:0;font-size:15px;color:#cfcde0}
+.c1 h3{color:var(--gfp)} .c2 h3{color:var(--info)} .c3 h3{color:var(--amber)} .c4 h3{color:var(--stain)} .c5 h3{color:var(--eye)} .c6 h3{color:var(--text)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.kpi{background:var(--panel);border:1px solid var(--rule);border-radius:12px;padding:12px 14px}
+.kpi b{display:block;font-size:28px;line-height:1.2;color:var(--gfp)}
+.kpi span{font-size:14px;color:var(--muted)}
+.cast{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.cast div{background:var(--panel);border:1px solid var(--rule);border-left:4px solid var(--rule);border-radius:12px;padding:12px 14px}
+.cast b{display:block}
+.cast span{font-size:14px;color:#cfcde0}
+.cast .doc{border-left-color:var(--text)} .cast .asst{border-left-color:var(--stain)} .cast .fly{border-left-color:var(--eye)} .cast .robo{border-left-color:var(--amber)}
+ul.plain{margin:0;padding-left:1.2em}
+ul.plain li{margin:.25em 0}
+footer{border-top:1px solid var(--rule);padding:30px 0 60px;color:var(--muted);font-size:14px}
+footer p{margin:.4em 0}
+</style>
+<link rel="alternate" hreflang="ko" href="index.html"><link rel="alternate" hreflang="en" href="index.en.html"><link rel="alternate" hreflang="zh-CN" href="index.zh.html"><link rel="alternate" hreflang="ja" href="index.ja.html"><link rel="alternate" hreflang="uz" href="index.uz.html"><link rel="alternate" hreflang="ru" href="index.ru.html"><link rel="alternate" hreflang="vi" href="index.vi.html"><link rel="alternate" hreflang="x-default" href="index.html">
+</head>
+<body>
+<nav class="top" aria-label="첫 화면 메뉴">
+  <a class="brand" href="./">연구실 해설 · LLM 평가</a>
+  <span class="sp"></span>
+  <a class="go" href="llm_evaluation.html">대시보드 열기</a>
+</nav>
+
+<figure class="cover">
+  <img src="assets/cover_llmeval.webp" width="1600" height="900" alt="밤의 연구실에서 네 캐릭터가 봉인된 시험지 상자를 사이에 두고 모인 표지" fetchpriority="high" decoding="async">
+</figure>
+
+<main class="wrap">
+<header class="hero">
+  <p class="tag">논문 리뷰·해설 · AI 연구실 해설 대시보드</p>
+  <h1>AI 점수는 무엇을 잰 것일까</h1>
+  <p class="qline">다들 1등이라는데, 그 1등은 어떤 시험의 1등일까?</p>
+  <p class="lead">악플 분류기를 채점하는 법(80:20, stratify, 혼동행렬)에서 출발해, 대형 언어모델(LLM)의 시험지와 채점 방식까지 한 칸씩 올라갑니다. 모든 실험은 브라우저에서 직접 돌려 볼 수 있고, 마지막에는 초파리 연구원과 주판봇이 "리더보드 점수 올리기"로 대결합니다.</p>
+  <p class="byline">글 · 안상선 ((주)M-Robo 대표) · AI 보조 제작 · 2026년 11월</p>
+  <a class="cta" href="llm_evaluation.html">대시보드 열기 →</a>
+</header>
+
+<section id="levels">
+  <h2>다섯 칸으로 오르는 길</h2>
+  <p class="sub">답의 모양이 바뀔수록 채점 방법이 어떻게 바뀌는지 따라갑니다. 카드를 누르면 그 칸으로 바로 갑니다.</p>
+  <div class="grid">
+    <a class="card c1" href="llm_evaluation.html#lv1"><p class="n">① 칸</p><h3>칸 하나 고르기</h3><p>분류 모델 채점. 시험셋 나누기, stratify, 혼동행렬과 정밀도·재현율.</p></a>
+    <a class="card c2" href="llm_evaluation.html#lv2"><p class="n">② 칸</p><h3>숫자 맞히기</h3><p>회귀 모델 채점. MAE와 RMSE, 교차검증을 하는 이유.</p></a>
+    <a class="card c3" href="llm_evaluation.html#lv3"><p class="n">③ 칸</p><h3>정답 있는 긴 답</h3><p>코드를 실행해서 채점하기. 여러 번 풀게 하면 점수가 얼마나 오르는지 pass@k로 확인합니다.</p></a>
+    <a class="card c4" href="llm_evaluation.html#lv4"><p class="n">④ 칸</p><h3>정답 없는 답</h3><p>두 답을 나란히 놓고 투표하기. Bradley-Terry 점수와 AI 심판의 편향.</p></a>
+    <a class="card c5" href="llm_evaluation.html#lv5"><p class="n">⑤ 칸</p><h3>시험지 지키기</h3><p>시험 문제가 공부 자료에 섞이는 오염, 그리고 점수에 오차막대를 다는 법.</p></a>
+    <a class="card c6" href="llm_evaluation.html#duel"><p class="n">대결</p><h3>리더보드 점수, 어떻게 올릴까?</h3><p>초파리 연구원과 주판봇이 같은 모델로 점수 올리기 시합을 합니다. 박사의 판정은 숫자대로.</p></a>
+  </div>
+</section>
+
+<section id="inside">
+  <h2>페이지에 들어 있는 것</h2>
+  <p class="sub">읽고 끝나는 글이 아니라, 돌려 보고 가져가는 해설입니다.</p>
+  <div class="kpis">
+    <div class="kpi"><b>14</b><span>리뷰한 논문·자료</span></div>
+    <div class="kpi"><b>13</b><span>확인 퀴즈 문항</span></div>
+    <div class="kpi"><b>130</b><span>지식 색인 개념</span></div>
+    <div class="kpi"><b>168</b><span>개념 사이 관계</span></div>
+  </div>
+  <ul class="plain" style="margin-top:18px">
+    <li><b>실습 키트:</b> 내 업무용 시험지 양식(CSV)과 채점 스크립트(파이썬)를 내려받아 두 모델을 직접 비교합니다.</li>
+    <li><b>지식 색인:</b> 개념을 찾아보고, 개념끼리 어떻게 이어지는지 그래프로 봅니다.</li>
+    <li><b>온톨로지·서지 꾸러미:</b> JSON-LD, Turtle, CSL-JSON, BibTeX, RIS로 내려받습니다.</li>
+    <li><b>7개 언어:</b> 한국어, English, 中文, 日本語, Oʻzbekcha, Русский, Tiếng Việt. 오른쪽 아래 🌐 버튼으로 바꿉니다.</li>
+  </ul>
+</section>
+
+<section id="cast">
+  <h2>등장인물</h2>
+  <p class="sub">네 사람이 실험을 진행하고, 숫자로 판정합니다.</p>
+  <div class="cast">
+    <div class="doc"><b>박사</b><span>해설과 심판. 판정은 숫자대로 내린다.</span></div>
+    <div class="asst"><b>조수(하루)</b><span>실험 진행과 숫자 발표. 판정은 하지 않는다.</span></div>
+    <div class="fly"><b>초파리 연구원</b><span>의심하는 쪽. 기준선과 검증부터 본다.</span></div>
+    <div class="robo"><b>주판봇</b><span>확신하는 쪽. 높은 숫자에 건다.</span></div>
+  </div>
+</section>
+
+<section id="start">
+  <h2>어디서부터 볼까요</h2>
+  <ul class="plain">
+    <li>머신러닝이 처음이라면 <a href="llm_evaluation.html#lv1">① 칸</a>부터 천천히 오세요.</li>
+    <li>훈련·검증을 나누는 이유를 이미 안다면 <a href="llm_evaluation.html#lv3">③ 칸</a>부터 보아도 됩니다.</li>
+    <li>리더보드 순위를 어떻게 읽어야 할지만 궁금하다면 <a href="llm_evaluation.html#lv5">⑤ 칸</a>과 <a href="llm_evaluation.html#sum">정리</a>로 가세요.</li>
+  </ul>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>글 · 안상선 ((주)M-Robo 대표) · AI 보조 제작. 리뷰한 논문의 실험 결과와 수치의 원저작은 각 논문 저자에게 있습니다.</p>
+    <p>글은 <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license">CC BY-NC 4.0</a>으로 공개합니다. 캐릭터(박사 · 조수 하루 · 초파리 연구원 · 주판봇)의 이름·설정·그림은 저작권자 안상선에게 있으며 허락 없이 쓸 수 없습니다.</p>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,600 @@
+{
+  "registryVersion": "KG_00 추가분 2026-10-27",
+  "page": "llm_evaluation",
+  "concepts": [
+    {
+      "id": "lab:concept/classification-evaluation",
+      "type": "Concept",
+      "ko": "분류 모델 채점",
+      "en": "classification evaluation"
+    },
+    {
+      "id": "lab:concept/regression-evaluation",
+      "type": "Concept",
+      "ko": "회귀 모델 채점",
+      "en": "regression evaluation"
+    },
+    {
+      "id": "lab:method/execution-based-evaluation",
+      "type": "Method",
+      "ko": "실행 기반 채점",
+      "en": "execution-based evaluation"
+    },
+    {
+      "id": "lab:method/pairwise-preference-evaluation",
+      "type": "Method",
+      "ko": "쌍대 선호 평가",
+      "en": "pairwise preference evaluation"
+    },
+    {
+      "id": "lab:concept/test-set-protection",
+      "type": "Concept",
+      "ko": "시험지 지키기",
+      "en": "test set protection"
+    },
+    {
+      "id": "lab:limitation/fixed-categories-only",
+      "type": "Limitation",
+      "ko": "정해진 칸이 있어야 함",
+      "en": "requires fixed categories"
+    },
+    {
+      "id": "lab:limitation/numeric-answers-only",
+      "type": "Limitation",
+      "ko": "답이 숫자여야 함",
+      "en": "requires numeric answers"
+    },
+    {
+      "id": "lab:limitation/needs-checkable-result",
+      "type": "Limitation",
+      "ko": "실행·대조할 결과가 있어야 함",
+      "en": "requires a checkable result"
+    },
+    {
+      "id": "lab:limitation/preference-bias",
+      "type": "Limitation",
+      "ko": "선호 편향과 반복 사용",
+      "en": "preference bias and reuse"
+    },
+    {
+      "id": "lab:limitation/mismatch-with-own-work",
+      "type": "Limitation",
+      "ko": "내 업무와 다를 수 있음",
+      "en": "mismatch with own work"
+    },
+    {
+      "id": "lab:concept/train-test-split",
+      "type": "Concept",
+      "ko": "학습·시험 분리",
+      "en": "train-test split"
+    },
+    {
+      "id": "lab:concept/stratified-sampling",
+      "type": "Concept",
+      "ko": "stratify (층화 추출)",
+      "en": "stratified sampling"
+    },
+    {
+      "id": "lab:concept/cross-validation",
+      "type": "Concept",
+      "ko": "교차검증",
+      "en": "cross-validation"
+    },
+    {
+      "id": "lab:concept/confusion-matrix",
+      "type": "Concept",
+      "ko": "혼동행렬",
+      "en": "confusion matrix"
+    },
+    {
+      "id": "lab:concept/class-imbalance",
+      "type": "Concept",
+      "ko": "불균형 데이터",
+      "en": "class imbalance"
+    },
+    {
+      "id": "lab:concept/benchmark",
+      "type": "Concept",
+      "ko": "벤치마크",
+      "en": "benchmark"
+    },
+    {
+      "id": "lab:concept/few-shot-prompting",
+      "type": "Concept",
+      "ko": "few-shot",
+      "en": "few-shot prompting"
+    },
+    {
+      "id": "lab:method/llm-as-a-judge",
+      "type": "Method",
+      "ko": "LLM 심판",
+      "en": "LLM-as-a-judge"
+    },
+    {
+      "id": "lab:concept/verbosity-bias",
+      "type": "Concept",
+      "ko": "길이 편향",
+      "en": "verbosity bias"
+    },
+    {
+      "id": "lab:concept/position-bias",
+      "type": "Concept",
+      "ko": "위치 편향",
+      "en": "position bias"
+    },
+    {
+      "id": "lab:concept/data-leakage",
+      "type": "Concept",
+      "ko": "데이터 누수",
+      "en": "data leakage"
+    },
+    {
+      "id": "lab:concept/benchmark-contamination",
+      "type": "Concept",
+      "ko": "오염",
+      "en": "benchmark contamination"
+    },
+    {
+      "id": "lab:concept/best-of-n-selection",
+      "type": "Concept",
+      "ko": "여러 버전 중 최고만 남기기",
+      "en": "best-of-N variant selection"
+    },
+    {
+      "id": "lab:concept/confidence-interval",
+      "type": "Concept",
+      "ko": "신뢰구간",
+      "en": "confidence interval"
+    },
+    {
+      "id": "lab:concept/clustered-standard-error",
+      "type": "Concept",
+      "ko": "군집 표준오차",
+      "en": "clustered standard error"
+    },
+    {
+      "id": "lab:concept/overfitting",
+      "type": "Concept",
+      "ko": "과적합",
+      "en": "overfitting"
+    },
+    {
+      "id": "lab:metric/accuracy",
+      "type": "Metric",
+      "ko": "정확도",
+      "en": "accuracy"
+    },
+    {
+      "id": "lab:metric/precision",
+      "type": "Metric",
+      "ko": "정밀도",
+      "en": "precision"
+    },
+    {
+      "id": "lab:metric/recall",
+      "type": "Metric",
+      "ko": "재현율",
+      "en": "recall"
+    },
+    {
+      "id": "lab:metric/f1-score",
+      "type": "Metric",
+      "ko": "F1",
+      "en": "F1 score"
+    },
+    {
+      "id": "lab:metric/mae",
+      "type": "Metric",
+      "ko": "MAE",
+      "en": "mean absolute error"
+    },
+    {
+      "id": "lab:metric/rmse",
+      "type": "Metric",
+      "ko": "RMSE",
+      "en": "root mean squared error"
+    },
+    {
+      "id": "lab:metric/pass-at-k",
+      "type": "Metric",
+      "ko": "pass@k",
+      "en": "pass@k"
+    },
+    {
+      "id": "lab:metric/exact-match",
+      "type": "Metric",
+      "ko": "정답 대조",
+      "en": "exact match"
+    },
+    {
+      "id": "lab:metric/bradley-terry-score",
+      "type": "Metric",
+      "ko": "Bradley-Terry 점수",
+      "en": "Bradley-Terry score"
+    },
+    {
+      "id": "lab:method/bradley-terry-model",
+      "type": "Method",
+      "ko": "Bradley-Terry 모델",
+      "en": "Bradley-Terry model"
+    },
+    {
+      "id": "lab:task/classification",
+      "type": "Task",
+      "ko": "분류",
+      "en": "classification"
+    },
+    {
+      "id": "lab:task/regression",
+      "type": "Task",
+      "ko": "회귀",
+      "en": "regression"
+    },
+    {
+      "id": "lab:task/code-generation",
+      "type": "Task",
+      "ko": "코드 생성",
+      "en": "code generation"
+    },
+    {
+      "id": "lab:task/open-ended-generation",
+      "type": "Task",
+      "ko": "정답 없는 생성",
+      "en": "open-ended generation"
+    },
+    {
+      "id": "lab:dataset/mmlu",
+      "type": "Dataset",
+      "ko": "MMLU",
+      "en": "MMLU"
+    },
+    {
+      "id": "lab:dataset/gpqa",
+      "type": "Dataset",
+      "ko": "GPQA",
+      "en": "GPQA"
+    },
+    {
+      "id": "lab:dataset/swe-bench-verified",
+      "type": "Dataset",
+      "ko": "SWE-bench Verified",
+      "en": "SWE-bench Verified"
+    },
+    {
+      "id": "lab:dataset/humaneval",
+      "type": "Dataset",
+      "ko": "HumanEval",
+      "en": "HumanEval"
+    },
+    {
+      "id": "lab:dataset/chatbot-arena",
+      "type": "Dataset",
+      "ko": "Chatbot Arena",
+      "en": "Chatbot Arena"
+    },
+    {
+      "id": "lab:dataset/mt-bench",
+      "type": "Dataset",
+      "ko": "MT-Bench",
+      "en": "MT-Bench"
+    },
+    {
+      "id": "lab:dataset/livebench",
+      "type": "Dataset",
+      "ko": "LiveBench",
+      "en": "LiveBench"
+    },
+    {
+      "id": "lab:dataset/gsm8k",
+      "type": "Dataset",
+      "ko": "GSM8k",
+      "en": "GSM8k"
+    },
+    {
+      "id": "lab:dataset/gsm1k",
+      "type": "Dataset",
+      "ko": "GSM1k",
+      "en": "GSM1k"
+    },
+    {
+      "id": "lab:term/sigmoid",
+      "type": "Term",
+      "ko": "σ (시그모이드)",
+      "en": "sigmoid"
+    },
+    {
+      "id": "lab:term/logistic-regression",
+      "type": "Term",
+      "ko": "로지스틱 회귀",
+      "en": "logistic regression"
+    },
+    {
+      "id": "lab:term/decision-threshold",
+      "type": "Term",
+      "ko": "문턱",
+      "en": "decision threshold"
+    },
+    {
+      "id": "lab:analogy/sealed-envelope",
+      "type": "Analogy",
+      "ko": "봉인 봉투 속 시료",
+      "en": "sealed sample envelope"
+    },
+    {
+      "id": "lab:analogy/scale-error",
+      "type": "Analogy",
+      "ko": "저울 오차",
+      "en": "scale measurement error"
+    },
+    {
+      "id": "lab:analogy/reagent-reaction",
+      "type": "Analogy",
+      "ko": "시약 반응 확인",
+      "en": "reagent reaction check"
+    },
+    {
+      "id": "lab:analogy/blind-tasting",
+      "type": "Analogy",
+      "ko": "블라인드 시음",
+      "en": "blind tasting"
+    },
+    {
+      "id": "lab:analogy/repeated-measurement",
+      "type": "Analogy",
+      "ko": "반복 측정과 맹검",
+      "en": "repeated measurement"
+    },
+    {
+      "id": "lab:question/what-was-measured",
+      "type": "Question",
+      "ko": "그 1등은 무엇을 잰 1등인가?",
+      "en": "What did the top score measure?"
+    },
+    {
+      "id": "lab:question/honest-leaderboard",
+      "type": "Question",
+      "ko": "리더보드 점수를 정직하게 올리는 길은 무엇인가?",
+      "en": "How to raise a leaderboard score honestly?"
+    },
+    {
+      "id": "lab:question/practical-gap",
+      "type": "Question",
+      "ko": "상위권 1~5점 차이가 내 업무에서 체감되는가? (확인 필요)",
+      "en": "Do 1–5 point gaps matter in practice?"
+    },
+    {
+      "id": "lab:question/judge-bias-removal",
+      "type": "Question",
+      "ko": "더 강한 심판 모델로 편향을 없앨 수 있는가? (연구 중)",
+      "en": "Can stronger judges remove bias?"
+    },
+    {
+      "id": "lab:work/hendrycks2021measuring",
+      "type": "Work",
+      "ko": "MMLU 원 논문",
+      "en": "hendrycks2021measuring"
+    },
+    {
+      "id": "lab:work/rein2023gpqa",
+      "type": "Work",
+      "ko": "GPQA 원 논문",
+      "en": "rein2023gpqa"
+    },
+    {
+      "id": "lab:work/openai2024sweverified",
+      "type": "Work",
+      "ko": "SWE-bench Verified 소개",
+      "en": "openai2024sweverified"
+    },
+    {
+      "id": "lab:work/jimenez2024swebench",
+      "type": "Work",
+      "ko": "SWE-bench 원 논문",
+      "en": "jimenez2024swebench"
+    },
+    {
+      "id": "lab:work/chen2021evaluating",
+      "type": "Work",
+      "ko": "HumanEval·pass@k 원 논문",
+      "en": "chen2021evaluating"
+    },
+    {
+      "id": "lab:work/chiang2024chatbot",
+      "type": "Work",
+      "ko": "Chatbot Arena 논문",
+      "en": "chiang2024chatbot"
+    },
+    {
+      "id": "lab:work/zheng2023judging",
+      "type": "Work",
+      "ko": "LLM 심판·MT-Bench 논문",
+      "en": "zheng2023judging"
+    },
+    {
+      "id": "lab:work/white2025livebench",
+      "type": "Work",
+      "ko": "LiveBench 논문",
+      "en": "white2025livebench"
+    },
+    {
+      "id": "lab:work/zhang2024careful",
+      "type": "Work",
+      "ko": "GSM1k 논문",
+      "en": "zhang2024careful"
+    },
+    {
+      "id": "lab:work/singh2025leaderboard",
+      "type": "Work",
+      "ko": "The Leaderboard Illusion",
+      "en": "singh2025leaderboard"
+    },
+    {
+      "id": "lab:work/miller2024adding",
+      "type": "Work",
+      "ko": "Adding Error Bars to Evals",
+      "en": "miller2024adding"
+    },
+    {
+      "id": "lab:concept/dev-test-split",
+      "type": "Concept",
+      "ko": "개발용·시험용 분리",
+      "en": "development–test split"
+    },
+    {
+      "id": "lab:concept/wilson-interval",
+      "type": "Concept",
+      "ko": "Wilson 구간",
+      "en": "Wilson score interval"
+    },
+    {
+      "id": "lab:method/mcnemar-test",
+      "type": "Method",
+      "ko": "McNemar 검정",
+      "en": "McNemar test"
+    },
+    {
+      "id": "lab:metric/attack-success-rate",
+      "type": "Metric",
+      "ko": "공격 성공률",
+      "en": "attack success rate"
+    },
+    {
+      "id": "lab:metric/task-resolution-rate",
+      "type": "Metric",
+      "ko": "과제 해결률",
+      "en": "task resolution rate"
+    },
+    {
+      "id": "lab:metric/simpleqa-f-score",
+      "type": "Metric",
+      "ko": "SimpleQA F-score",
+      "en": "SimpleQA F-score"
+    },
+    {
+      "id": "lab:dataset/simpleqa",
+      "type": "Dataset",
+      "ko": "SimpleQA",
+      "en": "SimpleQA"
+    },
+    {
+      "id": "lab:dataset/harmbench",
+      "type": "Dataset",
+      "ko": "HarmBench",
+      "en": "HarmBench"
+    },
+    {
+      "id": "lab:dataset/terminal-bench",
+      "type": "Dataset",
+      "ko": "Terminal-Bench 2.0",
+      "en": "Terminal-Bench 2.0"
+    },
+    {
+      "id": "lab:task/factuality",
+      "type": "Task",
+      "ko": "사실성",
+      "en": "factuality"
+    },
+    {
+      "id": "lab:task/safety",
+      "type": "Task",
+      "ko": "안전",
+      "en": "safety"
+    },
+    {
+      "id": "lab:task/agentic-task",
+      "type": "Task",
+      "ko": "에이전트 과제",
+      "en": "agentic task"
+    },
+    {
+      "id": "lab:work/openai2024simpleqa",
+      "type": "Work",
+      "ko": "SimpleQA 논문",
+      "en": "openai2024simpleqa"
+    },
+    {
+      "id": "lab:work/mazeika2024harmbench",
+      "type": "Work",
+      "ko": "HarmBench 논문",
+      "en": "mazeika2024harmbench"
+    },
+    {
+      "id": "lab:work/merrill2026terminalbench",
+      "type": "Work",
+      "ko": "Terminal-Bench 논문",
+      "en": "merrill2026terminalbench"
+    }
+  ],
+  "works": [
+    {
+      "id": "hendrycks2021measuring",
+      "title": "Measuring Massive Multitask Language Understanding",
+      "year": 2021
+    },
+    {
+      "id": "rein2023gpqa",
+      "title": "GPQA: A Graduate-Level Google-Proof Q&A Benchmark",
+      "year": 2023
+    },
+    {
+      "id": "openai2024sweverified",
+      "title": "Introducing SWE-bench Verified",
+      "year": 2024
+    },
+    {
+      "id": "jimenez2024swebench",
+      "title": "SWE-bench: Can Language Models Resolve Real-world Github Issues?",
+      "year": 2024
+    },
+    {
+      "id": "chen2021evaluating",
+      "title": "Evaluating Large Language Models Trained on Code",
+      "year": 2021
+    },
+    {
+      "id": "chiang2024chatbot",
+      "title": "Chatbot Arena: An Open Platform for Evaluating LLMs by Human Preference",
+      "year": 2024
+    },
+    {
+      "id": "zheng2023judging",
+      "title": "Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena",
+      "year": 2023
+    },
+    {
+      "id": "white2025livebench",
+      "title": "LiveBench: A Challenging, Contamination-Limited LLM Benchmark",
+      "year": 2025
+    },
+    {
+      "id": "zhang2024careful",
+      "title": "A Careful Examination of Large Language Model Performance on Grade School Arithmetic",
+      "year": 2024
+    },
+    {
+      "id": "singh2025leaderboard",
+      "title": "The Leaderboard Illusion",
+      "year": 2025
+    },
+    {
+      "id": "miller2024adding",
+      "title": "Adding Error Bars to Evals: A Statistical Approach to Language Model Evaluations",
+      "year": 2024
+    },
+    {
+      "id": "openai2024simpleqa",
+      "title": "Measuring short-form factuality in large language models",
+      "year": 2024
+    },
+    {
+      "id": "mazeika2024harmbench",
+      "title": "HarmBench: A Standardized Evaluation Framework for Automated Red Teaming and Robust Refusal",
+      "year": 2024
+    },
+    {
+      "id": "merrill2026terminalbench",
+      "title": "Terminal-Bench: Benchmarking Agents on Hard, Realistic Tasks in Command Line Interfaces",
+      "year": 2026
+    }
+  ]
+}

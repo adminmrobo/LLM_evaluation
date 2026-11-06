@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><!-- i18n:switcher --><style data-i18n-sw>.i18n-pick{display:inline-flex;align-items:center;gap:4px;margin:0 8px;font:inherit;font-size:13px;white-space:nowrap}.i18n-pick select{font:inherit;font-size:13px;padding:3px 6px;border-radius:8px;border:1px solid var(--rule,rgba(128,128,128,.5));background:var(--panel,Canvas);color:var(--text,CanvasText)}.i18n-pick.float{position:fixed;top:calc(8px + env(safe-area-inset-top,0px));right:max(8px,env(safe-area-inset-right,0px));z-index:9998}#i18nBanner{position:fixed;right:max(14px,env(safe-area-inset-right,0px));bottom:max(14px,env(safe-area-inset-bottom,0px));z-index:9999;font:14px/1.3 var(--font,system-ui,sans-serif)}#i18nBanner>button{border-radius:999px;padding:9px 14px;border:1px solid var(--rule,#363a52);background:var(--panel,#1c1e2d);color:var(--text,#eceaf3);box-shadow:0 4px 14px rgba(0,0,0,.35);cursor:pointer;font:inherit}#i18nBanner ul{position:absolute;right:0;bottom:calc(100% + 8px);margin:0;padding:6px;list-style:none;min-width:150px;border-radius:12px;border:1px solid var(--rule,#363a52);background:var(--panel,#1c1e2d);box-shadow:0 8px 24px rgba(0,0,0,.4)}#i18nBanner ul[hidden]{display:none}#i18nBanner a{display:block;padding:7px 10px;border-radius:8px;color:var(--text,#eceaf3);text-decoration:none}#i18nBanner a:hover,#i18nBanner a:focus-visible{background:var(--panel2,#25283a)}#i18nBanner a[aria-current]{color:var(--amber,#f1b646);font-weight:700}@media print{#i18nBanner,.i18n-pick{display:none!important}}</style><script data-i18n-skip>(function(){var C={"langs": [["ko", "한국어"], ["en", "English"], ["zh", "中文"], ["ja", "日本語"], ["uz", "Oʻzbekcha"], ["ru", "Русский"], ["vi", "Tiếng Việt"]], "urls": {"ko": "index.html", "en": "index.en.html", "zh": "index.zh.html", "ja": "index.ja.html", "uz": "index.uz.html", "ru": "index.ru.html", "vi": "index.vi.html"}, "cur": "en", "auto": true, "key": "llmeval_lang", "hosts": [["#langSw", "append"], ["nav.top .brand", "after"], ["nav.top .logo", "after"], ["nav .in", "append"], ["nav", "append"]], "banner": true, "select": true},cur=C.cur,ok={},de=document.documentElement;C.langs.forEach(function(l){ok[l[0]]=1});
+function U(l){return C.urls[l]}
+function save(l){try{localStorage.setItem(C.key,l)}catch(e){}}
+function saved(){try{return localStorage.getItem(C.key)}catch(e){return null}}
+function go(l){location.replace(U(l)+'?lang='+l+location.hash)}
+var shown=function(){de.style.visibility=''};
+function tryGo(l){if(location.protocol==='file:'){go(l);return}
+ de.style.visibility='hidden';var t=setTimeout(shown,2500);
+ try{fetch(U(l),{method:'HEAD',cache:'no-store'}).then(function(r){if(r.ok)go(l);else{clearTimeout(t);shown()}},function(){clearTimeout(t);shown()})}catch(e){clearTimeout(t);shown()}}
+var q=null;try{q=new URLSearchParams(location.search).get('lang')}catch(e){}
+if(q&&ok[q]){save(q);if(q!==cur){tryGo(q);}}
+else if(cur==='ko'&&C.auto){var s=saved(),to=null;
+ if(s&&ok[s]){if(s!=='ko')to=s;}
+ else if(location.protocol!=='file:'){var same=false;try{same=!!document.referrer&&new URL(document.referrer).origin===location.origin}catch(e){}
+  if(!same){var nav=(navigator.languages||[navigator.language||'']).map(function(x){return String(x).slice(0,2).toLowerCase()});
+   for(var i=0;i<nav.length;i++){if(nav[i]==='ko')break;if(ok[nav[i]]){to=nav[i];break;}}}}
+ if(to)tryGo(to);}
+function pick(l){save(l);location.href=U(l)+'?lang='+l+location.hash;}
+function name(l){for(var i=0;i<C.langs.length;i++)if(C.langs[i][0]===l)return C.langs[i][1];return l}
+function mount(){if(document.getElementById('i18nSel'))return;
+ if(C.select){var w=document.createElement('span');w.className='i18n-pick';w.innerHTML='<span aria-hidden="true">🌐</span>';
+  var s=document.createElement('select');s.id='i18nSel';s.setAttribute('aria-label','Language');
+  C.langs.forEach(function(l){var o=document.createElement('option');o.value=l[0];o.textContent=l[1];if(l[0]===cur)o.selected=true;s.appendChild(o);});
+  s.addEventListener('change',function(){pick(s.value)});w.appendChild(s);var put=false;
+  for(var i=0;i<C.hosts.length&&!put;i++){var h=document.querySelector(C.hosts[i][0]);if(!h)continue;var m=C.hosts[i][1];
+   if(m==='after')h.insertAdjacentElement('afterend',w);else if(m==='before')h.insertAdjacentElement('beforebegin',w);else h.appendChild(w);put=true;}
+  if(!put){w.classList.add('float');document.body.appendChild(w);}}
+ if(C.banner&&!document.getElementById('i18nBanner')){var b=document.createElement('div');b.id='i18nBanner';
+  var bt=document.createElement('button');bt.type='button';bt.setAttribute('aria-haspopup','true');bt.setAttribute('aria-expanded','false');bt.textContent='🌐 '+name(cur);
+  var ul=document.createElement('ul');ul.hidden=true;ul.setAttribute('role','menu');
+  C.langs.forEach(function(l){var li=document.createElement('li'),a=document.createElement('a');a.href=U(l[0])+'?lang='+l[0];a.textContent=l[1];a.lang=l[0];a.setAttribute('role','menuitem');
+   if(l[0]===cur)a.setAttribute('aria-current','true');a.addEventListener('click',function(e){e.preventDefault();pick(l[0])});li.appendChild(a);ul.appendChild(li);});
+  function close(){ul.hidden=true;bt.setAttribute('aria-expanded','false')}
+  bt.addEventListener('click',function(e){e.stopPropagation();ul.hidden=!ul.hidden;bt.setAttribute('aria-expanded',String(!ul.hidden))});
+  document.addEventListener('click',function(e){if(!b.contains(e.target))close()});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'){close();bt.focus&&!ul.hidden&&bt.focus()}});
+  b.appendChild(ul);b.appendChild(bt);document.body.appendChild(b);}}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();})();</script><!-- /i18n:switcher -->
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>What Did the AI Score Actually Measure? A Lab Explainer</title>
+<meta name="description" content="The opening page of an LLM evaluation explainer dashboard, where you learn by running five steps yourself, from classification model scoring up to LLM leaderboards.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="What Did the AI Score Actually Measure? A Lab Explainer">
+<meta property="og:description" content="Everyone says they're number one, but which test's number one is it? From classification model scoring to LLM leaderboards.">
+<meta property="og:image" content="https://adminmrobo.github.io/LLM_evaluation/assets/og_llmeval.jpg">
+<meta property="og:url" content="https://adminmrobo.github.io/LLM_evaluation/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;700&display=swap">
+<style>
+:root{
+  --bg:#13141f; --panel:#1c1e2d; --panel2:#25283a; --rule:#363a52;
+  --text:#eceaf3; --muted:#9d9bb8;
+  --stain:#d672d6; --gfp:#5ee39c; --eye:#f0604d; --amber:#f1b646; --info:#82b8ff;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:400 16px/1.75 "IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",system-ui,sans-serif;overflow-x:hidden;word-break:keep-all}
+a{color:var(--info)}
+:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+nav.top{position:sticky;top:0;z-index:50;height:54px;display:flex;align-items:center;gap:10px;padding:0 16px;background:rgba(19,20,31,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--rule)}
+nav.top .brand{font-weight:700;color:var(--gfp);text-decoration:none;white-space:nowrap}
+nav.top{overflow-x:auto;scrollbar-width:none}
+nav.top::-webkit-scrollbar{display:none}
+@media (max-width:560px){nav.top .go{display:none}}
+nav.top .sp{flex:1}
+nav.top .go{color:var(--text);text-decoration:none;font-size:14px;padding:6px 12px;border:1px solid var(--rule);border-radius:999px;white-space:nowrap}
+nav.top .go:hover{background:var(--panel2)}
+.cover{margin:0;aspect-ratio:16/9;max-height:64vh;width:100%;overflow:hidden;background:linear-gradient(160deg,#1b1533,#13141f);border-bottom:1px solid var(--rule)}
+.cover img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 42%}
+@media (max-width:600px){.cover{max-height:none}}
+.wrap{max-width:980px;margin:0 auto;padding:0 16px}
+header.hero{padding:44px 0 20px}
+.tag{display:inline-block;font-size:13px;color:var(--gfp);border:1px solid rgba(94,227,156,.4);border-radius:999px;padding:3px 12px;margin:0 0 14px}
+h1{font-size:clamp(30px,6vw,52px);line-height:1.2;margin:0 0 10px;letter-spacing:-.01em}
+.qline{font-size:clamp(18px,2.6vw,22px);color:var(--amber);margin:0 0 18px;font-weight:500}
+.lead{font-size:17px;max-width:46em;margin:0 0 22px}
+.byline{color:var(--muted);font-size:14px;margin:0 0 26px}
+.cta{display:inline-flex;align-items:center;gap:8px;background:var(--amber);color:#1b1533;font-weight:700;text-decoration:none;padding:12px 22px;border-radius:12px;font-size:17px}
+.cta:hover{filter:brightness(1.08)}
+section{padding:44px 0;border-top:1px solid var(--rule)}
+h2{font-size:24px;margin:0 0 6px}
+.sub{color:var(--muted);margin:0 0 22px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.card{background:var(--panel);border:1px solid var(--rule);border-radius:14px;padding:16px 18px;text-decoration:none;color:var(--text);display:block}
+a.card:hover{border-color:var(--amber)}
+.card .n{font-size:13px;color:var(--muted);margin:0 0 2px}
+.card h3{font-size:17px;margin:0 0 6px}
+.card p{margin:0;font-size:15px;color:#cfcde0}
+.c1 h3{color:var(--gfp)} .c2 h3{color:var(--info)} .c3 h3{color:var(--amber)} .c4 h3{color:var(--stain)} .c5 h3{color:var(--eye)} .c6 h3{color:var(--text)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.kpi{background:var(--panel);border:1px solid var(--rule);border-radius:12px;padding:12px 14px}
+.kpi b{display:block;font-size:28px;line-height:1.2;color:var(--gfp)}
+.kpi span{font-size:14px;color:var(--muted)}
+.cast{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.cast div{background:var(--panel);border:1px solid var(--rule);border-left:4px solid var(--rule);border-radius:12px;padding:12px 14px}
+.cast b{display:block}
+.cast span{font-size:14px;color:#cfcde0}
+.cast .doc{border-left-color:var(--text)} .cast .asst{border-left-color:var(--stain)} .cast .fly{border-left-color:var(--eye)} .cast .robo{border-left-color:var(--amber)}
+ul.plain{margin:0;padding-left:1.2em}
+ul.plain li{margin:.25em 0}
+footer{border-top:1px solid var(--rule);padding:30px 0 60px;color:var(--muted);font-size:14px}
+footer p{margin:.4em 0}
+</style>
+<link rel="alternate" hreflang="ko" href="index.html"><link rel="alternate" hreflang="en" href="index.en.html"><link rel="alternate" hreflang="zh-CN" href="index.zh.html"><link rel="alternate" hreflang="ja" href="index.ja.html"><link rel="alternate" hreflang="uz" href="index.uz.html"><link rel="alternate" hreflang="ru" href="index.ru.html"><link rel="alternate" hreflang="vi" href="index.vi.html"><link rel="alternate" hreflang="x-default" href="index.html"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;700&display=swap"><style data-i18n-font>body,button,input,select,textarea{font-family:"IBM Plex Sans","IBM Plex Sans KR",system-ui,sans-serif}</style>
+</head>
+<body>
+<nav class="top" aria-label="Front page menu">
+  <a class="brand" href="./">Lab Explainer · LLM Evaluation</a>
+  <span class="sp"></span>
+  <a class="go" href="llm_evaluation.html">Open dashboard</a>
+</nav>
+
+<figure class="cover">
+  <img src="assets/cover_llmeval.webp" width="1600" height="900" alt="Cover: four characters gathered at night in the lab, with a sealed exam-paper box between them" fetchpriority="high" decoding="async">
+</figure>
+
+<main class="wrap">
+<header class="hero">
+  <p class="tag">Paper review and explainer · AI Lab Explainer Dashboard</p>
+  <h1>What Did the AI Score Actually Measure?</h1>
+  <p class="qline">Everyone says they're number one, but which test's number one is it?</p>
+  <p class="lead">Starting from how to score a toxic-comment classifier (80:20, stratify, confusion matrix), this climbs one step at a time to the exam papers and scoring methods for large language models (LLMs). Every experiment can be run directly in your browser, and at the end the Fruit Fly Researcher and AbaBot face off in a "leaderboard score-raising" showdown.</p>
+  <p class="byline">Written by Ahn Sangsun (CEO, M-Robo Inc.) · Produced with AI assistance · November 2026</p>
+  <a class="cta" href="llm_evaluation.html">Open dashboard →</a>
+</header>
+
+<section id="levels">
+  <h2>Five steps up</h2>
+  <p class="sub">Follow how the scoring method changes as the shape of the answer changes. Click a card to jump straight to that step.</p>
+  <div class="grid">
+    <a class="card c1" href="llm_evaluation.html#lv1"><p class="n">Step ①</p><h3>Picking one box</h3><p>Classification model scoring. Splitting the test set, stratify, confusion matrix, precision and recall.</p></a>
+    <a class="card c2" href="llm_evaluation.html#lv2"><p class="n">Step ②</p><h3>Guessing a number</h3><p>Regression model scoring. MAE and RMSE, and why we use cross-validation.</p></a>
+    <a class="card c3" href="llm_evaluation.html#lv3"><p class="n">Step ③</p><h3>Long answers with a correct answer</h3><p>Scoring by running the code. If you let the model try several times, see how much the score rises with pass@k.</p></a>
+    <a class="card c4" href="llm_evaluation.html#lv4"><p class="n">Step ④</p><h3>Answers with no single correct one</h3><p>Put two answers side by side and vote. Bradley-Terry scores and bias in AI judges.</p></a>
+    <a class="card c5" href="llm_evaluation.html#lv5"><p class="n">Step ⑤</p><h3>Guarding the exam</h3><p>Contamination, where exam questions leak into study material, and how to attach error bars to a score.</p></a>
+    <a class="card c6" href="llm_evaluation.html#duel"><p class="n">Showdown</p><h3>How do you raise a leaderboard score?</h3><p>The Fruit Fly Researcher and AbaBot compete to raise scores on the same model. The Doctor's verdict follows the numbers.</p></a>
+  </div>
+</section>
+
+<section id="inside">
+  <h2>What's on this page</h2>
+  <p class="sub">This is not a piece you read once and close. It's an explainer you can play with and take with you.</p>
+  <div class="kpis">
+    <div class="kpi"><b>14</b><span>Papers and materials reviewed</span></div>
+    <div class="kpi"><b>13</b><span>Check-your-understanding quiz questions</span></div>
+    <div class="kpi"><b>130</b><span>Knowledge index concepts</span></div>
+    <div class="kpi"><b>168</b><span>Relations between concepts</span></div>
+  </div>
+  <ul class="plain" style="margin-top:18px">
+    <li><b>Practice kit:</b> Download an exam sheet template for your own work (CSV) and a scoring script (Python) to compare two models yourself.</li>
+    <li><b>Knowledge index:</b> Look up concepts and see how they connect in a graph.</li>
+    <li><b>Ontology & bibliography package:</b> Download in JSON-LD, Turtle, CSL-JSON, BibTeX, or RIS.</li>
+    <li><b>7 languages:</b> Korean, English, 中文, 日本語, Oʻzbekcha, Русский, Tiếng Việt. Switch with the 🌐 button at the bottom right.</li>
+  </ul>
+</section>
+
+<section id="cast">
+  <h2>Cast</h2>
+  <p class="sub">Four people run the experiments and judge by the numbers.</p>
+  <div class="cast">
+    <div class="doc"><b>Doctor</b><span>Explains and judges. Verdicts follow the numbers.</span></div>
+    <div class="asst"><b>Assistant (Haru)</b><span>Runs the experiments and announces the numbers. Does not judge.</span></div>
+    <div class="fly"><b>Fruit Fly Researcher</b><span>The skeptic. Checks baselines and validation first.</span></div>
+    <div class="robo"><b>AbaBot</b><span>The believer. Bets on the high numbers.</span></div>
+  </div>
+</section>
+
+<section id="start">
+  <h2>Where to start</h2>
+  <ul class="plain">
+    <li>If machine learning is new to you, start slowly from <a href="llm_evaluation.html#lv1">Step ①</a>.</li>
+    <li>If you already understand why we split training and validation, you can jump to <a href="llm_evaluation.html#lv3">Step ③</a>.</li>
+    <li>If you only want to know how to read leaderboard rankings, go to <a href="llm_evaluation.html#lv5">Step ⑤</a> and the <a href="llm_evaluation.html#sum">summary</a>.</li>
+  </ul>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Written by Ahn Sangsun (CEO, M-Robo Inc.) · Produced with AI assistance. The original rights to the experimental results and figures from the reviewed papers belong to each paper's authors.</p>
+    <p>The text is published under <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.en" rel="license">CC BY-NC 4.0</a>. The names, settings, and artwork of the characters (Doctor · Assistant Haru · Fruit Fly Researcher · AbaBot) belong to the copyright holder, Ahn Sangsun, and may not be used without permission.</p>
+  </div>
+</footer>
+</body>
+</html>

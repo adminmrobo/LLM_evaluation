@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8"><!-- i18n:switcher --><style data-i18n-sw>.i18n-pick{display:inline-flex;align-items:center;gap:4px;margin:0 8px;font:inherit;font-size:13px;white-space:nowrap}.i18n-pick select{font:inherit;font-size:13px;padding:3px 6px;border-radius:8px;border:1px solid var(--rule,rgba(128,128,128,.5));background:var(--panel,Canvas);color:var(--text,CanvasText)}.i18n-pick.float{position:fixed;top:calc(8px + env(safe-area-inset-top,0px));right:max(8px,env(safe-area-inset-right,0px));z-index:9998}#i18nBanner{position:fixed;right:max(14px,env(safe-area-inset-right,0px));bottom:max(14px,env(safe-area-inset-bottom,0px));z-index:9999;font:14px/1.3 var(--font,system-ui,sans-serif)}#i18nBanner>button{border-radius:999px;padding:9px 14px;border:1px solid var(--rule,#363a52);background:var(--panel,#1c1e2d);color:var(--text,#eceaf3);box-shadow:0 4px 14px rgba(0,0,0,.35);cursor:pointer;font:inherit}#i18nBanner ul{position:absolute;right:0;bottom:calc(100% + 8px);margin:0;padding:6px;list-style:none;min-width:150px;border-radius:12px;border:1px solid var(--rule,#363a52);background:var(--panel,#1c1e2d);box-shadow:0 8px 24px rgba(0,0,0,.4)}#i18nBanner ul[hidden]{display:none}#i18nBanner a{display:block;padding:7px 10px;border-radius:8px;color:var(--text,#eceaf3);text-decoration:none}#i18nBanner a:hover,#i18nBanner a:focus-visible{background:var(--panel2,#25283a)}#i18nBanner a[aria-current]{color:var(--amber,#f1b646);font-weight:700}@media print{#i18nBanner,.i18n-pick{display:none!important}}</style><script data-i18n-skip>(function(){var C={"langs": [["ko", "한국어"], ["en", "English"], ["zh", "中文"], ["ja", "日本語"], ["uz", "Oʻzbekcha"], ["ru", "Русский"], ["vi", "Tiếng Việt"]], "urls": {"ko": "index.html", "en": "index.en.html", "zh": "index.zh.html", "ja": "index.ja.html", "uz": "index.uz.html", "ru": "index.ru.html", "vi": "index.vi.html"}, "cur": "uz", "auto": true, "key": "llmeval_lang", "hosts": [["#langSw", "append"], ["nav.top .brand", "after"], ["nav.top .logo", "after"], ["nav .in", "append"], ["nav", "append"]], "banner": true, "select": true},cur=C.cur,ok={},de=document.documentElement;C.langs.forEach(function(l){ok[l[0]]=1});
+function U(l){return C.urls[l]}
+function save(l){try{localStorage.setItem(C.key,l)}catch(e){}}
+function saved(){try{return localStorage.getItem(C.key)}catch(e){return null}}
+function go(l){location.replace(U(l)+'?lang='+l+location.hash)}
+var shown=function(){de.style.visibility=''};
+function tryGo(l){if(location.protocol==='file:'){go(l);return}
+ de.style.visibility='hidden';var t=setTimeout(shown,2500);
+ try{fetch(U(l),{method:'HEAD',cache:'no-store'}).then(function(r){if(r.ok)go(l);else{clearTimeout(t);shown()}},function(){clearTimeout(t);shown()})}catch(e){clearTimeout(t);shown()}}
+var q=null;try{q=new URLSearchParams(location.search).get('lang')}catch(e){}
+if(q&&ok[q]){save(q);if(q!==cur){tryGo(q);}}
+else if(cur==='ko'&&C.auto){var s=saved(),to=null;
+ if(s&&ok[s]){if(s!=='ko')to=s;}
+ else if(location.protocol!=='file:'){var same=false;try{same=!!document.referrer&&new URL(document.referrer).origin===location.origin}catch(e){}
+  if(!same){var nav=(navigator.languages||[navigator.language||'']).map(function(x){return String(x).slice(0,2).toLowerCase()});
+   for(var i=0;i<nav.length;i++){if(nav[i]==='ko')break;if(ok[nav[i]]){to=nav[i];break;}}}}
+ if(to)tryGo(to);}
+function pick(l){save(l);location.href=U(l)+'?lang='+l+location.hash;}
+function name(l){for(var i=0;i<C.langs.length;i++)if(C.langs[i][0]===l)return C.langs[i][1];return l}
+function mount(){if(document.getElementById('i18nSel'))return;
+ if(C.select){var w=document.createElement('span');w.className='i18n-pick';w.innerHTML='<span aria-hidden="true">🌐</span>';
+  var s=document.createElement('select');s.id='i18nSel';s.setAttribute('aria-label','Language');
+  C.langs.forEach(function(l){var o=document.createElement('option');o.value=l[0];o.textContent=l[1];if(l[0]===cur)o.selected=true;s.appendChild(o);});
+  s.addEventListener('change',function(){pick(s.value)});w.appendChild(s);var put=false;
+  for(var i=0;i<C.hosts.length&&!put;i++){var h=document.querySelector(C.hosts[i][0]);if(!h)continue;var m=C.hosts[i][1];
+   if(m==='after')h.insertAdjacentElement('afterend',w);else if(m==='before')h.insertAdjacentElement('beforebegin',w);else h.appendChild(w);put=true;}
+  if(!put){w.classList.add('float');document.body.appendChild(w);}}
+ if(C.banner&&!document.getElementById('i18nBanner')){var b=document.createElement('div');b.id='i18nBanner';
+  var bt=document.createElement('button');bt.type='button';bt.setAttribute('aria-haspopup','true');bt.setAttribute('aria-expanded','false');bt.textContent='🌐 '+name(cur);
+  var ul=document.createElement('ul');ul.hidden=true;ul.setAttribute('role','menu');
+  C.langs.forEach(function(l){var li=document.createElement('li'),a=document.createElement('a');a.href=U(l[0])+'?lang='+l[0];a.textContent=l[1];a.lang=l[0];a.setAttribute('role','menuitem');
+   if(l[0]===cur)a.setAttribute('aria-current','true');a.addEventListener('click',function(e){e.preventDefault();pick(l[0])});li.appendChild(a);ul.appendChild(li);});
+  function close(){ul.hidden=true;bt.setAttribute('aria-expanded','false')}
+  bt.addEventListener('click',function(e){e.stopPropagation();ul.hidden=!ul.hidden;bt.setAttribute('aria-expanded',String(!ul.hidden))});
+  document.addEventListener('click',function(e){if(!b.contains(e.target))close()});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'){close();bt.focus&&!ul.hidden&&bt.focus()}});
+  b.appendChild(ul);b.appendChild(bt);document.body.appendChild(b);}}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();})();</script><!-- /i18n:switcher -->
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AI ballari nimani oʻlchaydi — laboratoriya tushuntirishi</title>
+<meta name="description" content="Tasniflash modelini baholashdan LLM reytinglarigacha, besh bosqichda oʻzingiz ishga tushirib oʻrganadigan LLM baholash tushuntirish panelining birinchi sahifasi.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="AI ballari nimani oʻlchaydi — laboratoriya tushuntirishi">
+<meta property="og:description" content="Hamma «birinchi oʻrin»man deydi, lekin bu qaysi imtihondagi birinchi oʻrin? Tasniflash modelini baholashdan LLM reytinglarigacha.">
+<meta property="og:image" content="https://adminmrobo.github.io/LLM_evaluation/assets/og_llmeval.jpg">
+<meta property="og:url" content="https://adminmrobo.github.io/LLM_evaluation/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;700&display=swap">
+<style>
+:root{
+  --bg:#13141f; --panel:#1c1e2d; --panel2:#25283a; --rule:#363a52;
+  --text:#eceaf3; --muted:#9d9bb8;
+  --stain:#d672d6; --gfp:#5ee39c; --eye:#f0604d; --amber:#f1b646; --info:#82b8ff;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:400 16px/1.75 "IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",system-ui,sans-serif;overflow-x:hidden;word-break:keep-all}
+a{color:var(--info)}
+:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+nav.top{position:sticky;top:0;z-index:50;height:54px;display:flex;align-items:center;gap:10px;padding:0 16px;background:rgba(19,20,31,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--rule)}
+nav.top .brand{font-weight:700;color:var(--gfp);text-decoration:none;white-space:nowrap}
+nav.top{overflow-x:auto;scrollbar-width:none}
+nav.top::-webkit-scrollbar{display:none}
+@media (max-width:560px){nav.top .go{display:none}}
+nav.top .sp{flex:1}
+nav.top .go{color:var(--text);text-decoration:none;font-size:14px;padding:6px 12px;border:1px solid var(--rule);border-radius:999px;white-space:nowrap}
+nav.top .go:hover{background:var(--panel2)}
+.cover{margin:0;aspect-ratio:16/9;max-height:64vh;width:100%;overflow:hidden;background:linear-gradient(160deg,#1b1533,#13141f);border-bottom:1px solid var(--rule)}
+.cover img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 42%}
+@media (max-width:600px){.cover{max-height:none}}
+.wrap{max-width:980px;margin:0 auto;padding:0 16px}
+header.hero{padding:44px 0 20px}
+.tag{display:inline-block;font-size:13px;color:var(--gfp);border:1px solid rgba(94,227,156,.4);border-radius:999px;padding:3px 12px;margin:0 0 14px}
+h1{font-size:clamp(30px,6vw,52px);line-height:1.2;margin:0 0 10px;letter-spacing:-.01em}
+.qline{font-size:clamp(18px,2.6vw,22px);color:var(--amber);margin:0 0 18px;font-weight:500}
+.lead{font-size:17px;max-width:46em;margin:0 0 22px}
+.byline{color:var(--muted);font-size:14px;margin:0 0 26px}
+.cta{display:inline-flex;align-items:center;gap:8px;background:var(--amber);color:#1b1533;font-weight:700;text-decoration:none;padding:12px 22px;border-radius:12px;font-size:17px}
+.cta:hover{filter:brightness(1.08)}
+section{padding:44px 0;border-top:1px solid var(--rule)}
+h2{font-size:24px;margin:0 0 6px}
+.sub{color:var(--muted);margin:0 0 22px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.card{background:var(--panel);border:1px solid var(--rule);border-radius:14px;padding:16px 18px;text-decoration:none;color:var(--text);display:block}
+a.card:hover{border-color:var(--amber)}
+.card .n{font-size:13px;color:var(--muted);margin:0 0 2px}
+.card h3{font-size:17px;margin:0 0 6px}
+.card p{margin:0;font-size:15px;color:#cfcde0}
+.c1 h3{color:var(--gfp)} .c2 h3{color:var(--info)} .c3 h3{color:var(--amber)} .c4 h3{color:var(--stain)} .c5 h3{color:var(--eye)} .c6 h3{color:var(--text)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.kpi{background:var(--panel);border:1px solid var(--rule);border-radius:12px;padding:12px 14px}
+.kpi b{display:block;font-size:28px;line-height:1.2;color:var(--gfp)}
+.kpi span{font-size:14px;color:var(--muted)}
+.cast{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.cast div{background:var(--panel);border:1px solid var(--rule);border-left:4px solid var(--rule);border-radius:12px;padding:12px 14px}
+.cast b{display:block}
+.cast span{font-size:14px;color:#cfcde0}
+.cast .doc{border-left-color:var(--text)} .cast .asst{border-left-color:var(--stain)} .cast .fly{border-left-color:var(--eye)} .cast .robo{border-left-color:var(--amber)}
+ul.plain{margin:0;padding-left:1.2em}
+ul.plain li{margin:.25em 0}
+footer{border-top:1px solid var(--rule);padding:30px 0 60px;color:var(--muted);font-size:14px}
+footer p{margin:.4em 0}
+</style>
+<link rel="alternate" hreflang="ko" href="index.html"><link rel="alternate" hreflang="en" href="index.en.html"><link rel="alternate" hreflang="zh-CN" href="index.zh.html"><link rel="alternate" hreflang="ja" href="index.ja.html"><link rel="alternate" hreflang="uz" href="index.uz.html"><link rel="alternate" hreflang="ru" href="index.ru.html"><link rel="alternate" hreflang="vi" href="index.vi.html"><link rel="alternate" hreflang="x-default" href="index.html"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;700&display=swap"><style data-i18n-font>body,button,input,select,textarea{font-family:"IBM Plex Sans",system-ui,sans-serif}</style>
+</head>
+<body>
+<nav class="top" aria-label="Bosh sahifa menyusi">
+  <a class="brand" href="./">Laboratoriya tushuntirishi · LLM baholash</a>
+  <span class="sp"></span>
+  <a class="go" href="llm_evaluation.html">Panelni ochish</a>
+</nav>
+
+<figure class="cover">
+  <img src="assets/cover_llmeval.webp" width="1600" height="900" alt="Tungi laboratoriyada toʻrt qahramon muhrlangan imtihon qutisi atrofida yigʻilgan muqova" fetchpriority="high" decoding="async">
+</figure>
+
+<main class="wrap">
+<header class="hero">
+  <p class="tag">Maqola sharhi va tushuntirishi · AI laboratoriyasi tushuntirish paneli</p>
+  <h1>AI ballari nimani oʻlchaydi</h1>
+  <p class="qline">Hamma «birinchi oʻrin»man deydi, lekin bu qaysi imtihondagi birinchi oʻrin?</p>
+  <p class="lead">Zaharli izoh tasniflagichini baholash usulidan (80:20, stratify, chalkashlik matritsasi) boshlab, katta til modellari (LLM) imtihoni va baholash usullarigacha bosqichma-bosqich koʻtarilamiz. Barcha tajribalarni brauzerda oʻzingiz ishga tushirib koʻrishingiz mumkin, oxirida esa Meva pashshasi tadqiqotchisi bilan AbaBot «reyting balini oshirish» boʻyicha Bellashuvda bahslashadi.</p>
+  <p class="byline">Muallif · Ahn Sangsun (M-Robo kompaniyasi rahbari) · AI yordamida tayyorlangan · 2026-yil noyabr</p>
+  <a class="cta" href="llm_evaluation.html">Panelni ochish →</a>
+</header>
+
+<section id="levels">
+  <h2>Besh bosqichga koʻtarilish yoʻli</h2>
+  <p class="sub">Javob shakli oʻzgargan sari baholash usuli qanday oʻzgarishini kuzatamiz. Kartani bossangiz, shu bosqichga darrov oʻtasiz.</p>
+  <div class="grid">
+    <a class="card c1" href="llm_evaluation.html#lv1"><p class="n">① bosqich</p><h3>Bitta katak tanlash</h3><p>Tasniflash modelini baholash. Imtihon toʻplamini ajratish, stratify, chalkashlik matritsasi, precision va recall.</p></a>
+    <a class="card c2" href="llm_evaluation.html#lv2"><p class="n">② bosqich</p><h3>Son topish</h3><p>Regressiya modelini baholash. MAE va RMSE, kross-validatsiya nima uchun kerakligi.</p></a>
+    <a class="card c3" href="llm_evaluation.html#lv3"><p class="n">③ bosqich</p><h3>Toʻgʻri javobli uzun javob</h3><p>Kodni ishga tushirib baholash. Bir necha marta yechtirsa ball qanchaga oshishini pass@k bilan tekshiramiz.</p></a>
+    <a class="card c4" href="llm_evaluation.html#lv4"><p class="n">④ bosqich</p><h3>Toʻgʻri javobsiz javob</h3><p>Ikki javobni yonma-yon qoʻyib ovoz berish. Bradley-Terry bali va AI hakamning siljishi (bias).</p></a>
+    <a class="card c5" href="llm_evaluation.html#lv5"><p class="n">⑤ bosqich</p><h3>Imtihon varaqasini himoya qilish</h3><p>Imtihon savollarining oʻquv materialiga aralashib ketishi (ifloslanish) va ballga xato chiziqlarini qoʻshish usuli.</p></a>
+    <a class="card c6" href="llm_evaluation.html#duel"><p class="n">Bellashuv</p><h3>Reyting balini qanday oshirish mumkin?</h3><p>Meva pashshasi tadqiqotchisi bilan AbaBot bir xil modelda ball oshirish musobaqasi oʻtkazadi. Doktorning hukmi raqamlarga qarab chiqariladi.</p></a>
+  </div>
+</section>
+
+<section id="inside">
+  <h2>Sahifada nimalar bor</h2>
+  <p class="sub">Oʻqib tugatiladigan matn emas, ishga tushirib koʻrib, olib ketiladigan tushuntirishdir.</p>
+  <div class="kpis">
+    <div class="kpi"><b>14</b><span>Sharh qilingan maqola va manbalar</span></div>
+    <div class="kpi"><b>13</b><span>Tekshiruv testi savollari</span></div>
+    <div class="kpi"><b>130</b><span>Bilimlar indeksidagi tushunchalar</span></div>
+    <div class="kpi"><b>168</b><span>Tushunchalar orasidagi bogʻlanishlar</span></div>
+  </div>
+  <ul class="plain" style="margin-top:18px">
+    <li><b>Amaliy toʻplam:</b> Oʻz ishingiz uchun imtihon varaqasi shabloni (CSV) va baholash skriptini (Python) yuklab olib, ikki modelni oʻzingiz solishtirasiz.</li>
+    <li><b>Bilimlar indeksi:</b> Tushunchalarni qidiring va ular bir-biri bilan qanday bogʻlanishini graf koʻrinishida koʻring.</li>
+    <li><b>Ontologiya va bibliografiya toʻplami:</b> JSON-LD, Turtle, CSL-JSON, BibTeX, RIS formatlarida yuklab olinadi.</li>
+    <li><b>7 ta til:</b> Koreyscha, English, 中文, 日本語, Oʻzbekcha, Русский, Tiếng Việt. Oʻng pastdagi 🌐 tugmasi bilan almashtiriladi.</li>
+  </ul>
+</section>
+
+<section id="cast">
+  <h2>Qahramonlar</h2>
+  <p class="sub">Toʻrt kishi tajriba oʻtkazadi va raqamlar bilan hukm chiqaradi.</p>
+  <div class="cast">
+    <div class="doc"><b>Doktor</b><span>Tushuntiradi va hakamlik qiladi. Hukmni raqamlarga qarab chiqaradi.</span></div>
+    <div class="asst"><b>Yordamchi (Haru)</b><span>Tajribani olib boradi va raqamlarni eʼlon qiladi. Hukm chiqarmaydi.</span></div>
+    <div class="fly"><b>Meva pashshasi tadqiqotchisi</b><span>Shubhalanuvchi tomon. Avval asosiy chiziq va tekshiruvga qaraydi.</span></div>
+    <div class="robo"><b>AbaBot</b><span>Ishonuvchi tomon. Yuqori raqamga tikadi.</span></div>
+  </div>
+</section>
+
+<section id="start">
+  <h2>Qayerdan boshlaymiz</h2>
+  <ul class="plain">
+    <li>Mashinaviy oʻqitish siz uchun yangi boʻlsa, <a href="llm_evaluation.html#lv1">① bosqich</a>dan asta-sekin boshlang.</li>
+    <li>Oʻqitish va tekshiruvni nega ajratishni allaqachon bilsangiz, <a href="llm_evaluation.html#lv3">③ bosqich</a>dan boshlasangiz ham boʻladi.</li>
+    <li>Reyting jadvalini qanday oʻqishni bilmoqchi boʻlsangiz, <a href="llm_evaluation.html#lv5">⑤ bosqich</a> va <a href="llm_evaluation.html#sum">xulosa</a>ga oʻting.</li>
+  </ul>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Muallif · Ahn Sangsun (M-Robo kompaniyasi rahbari) · AI yordamida tayyorlangan. Sharh qilingan maqolalardagi tajriba natijalari va raqamlarning asl muallifligi har bir maqola mualliflariga tegishli.</p>
+    <p>Matn <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.en" rel="license">CC BY-NC 4.0</a> ostida ochiq. Qahramonlar (Doktor · yordamchi Haru · Meva pashshasi tadqiqotchisi · AbaBot)ning ismi, xarakteri va rasmlari muallif Ahn Sangsunga tegishli boʻlib, ruxsatsiz ishlatib boʻlmaydi.</p>
+  </div>
+</footer>
+</body>
+</html>
